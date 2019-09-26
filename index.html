@@ -11,7 +11,7 @@
     <script src="jquery-3.4.1.js"></script>
     <script>
       $(function(){
-        $.get("date.json",function(result){
+        $.get("./date.json",function(result){
           $("#name").text(result.name);
           $("#num").text(result.num);
         });
