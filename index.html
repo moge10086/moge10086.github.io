@@ -1,7 +1,7 @@
 <html>
   <body>
     <h1>
-      我叫<span>邵权</span>
+      我叫<span id="name">邵权</span>
     </h1>
     <p>
       我的学号是<span id="num">18002090128</span>
@@ -10,6 +10,12 @@
     <img id="logo" src="a.png" style="border-radius: 10px 20px 30px 40px">
     <script src="jquery-3.4.1.js"></script>
     <script>
+      $(function(){
+        $.get("./data.json",function(result){
+          $("#name").text(result.name);
+          $("#num").text(result.num);
+        });
+      })
     </script>
   </body>
 </html>
