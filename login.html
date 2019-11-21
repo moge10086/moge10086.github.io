@@ -1,0 +1,31 @@
+<html>
+  <body>
+   用户名：<br><input id="user" type="text"><br>
+   密码：<br><input id="password" type="password"><br>
+   <button id="btn">登录</button>
+    <script src="jquery-3.4.1.js"></script>
+    <script>
+      $(function(){
+        $("#btn").click(function(){
+          // alert("!");
+            var data={number:$("#user").val(),
+            password:$("#password").val()};
+            // alert("!");
+            $.ajax({
+            type:"post",
+            xhrFields:{
+              withCredentials:true
+            },
+            url:"http://127.0.0.1:8585/login",
+            contentType:"application/json",
+            data:JSON.stringify(data),
+            success:function(result){
+              if(result.result=="success")
+              location.href='index.html'
+            }
+        })
+        })
+      })
+    </script>
+  </body>
+</html>
