@@ -1,41 +1,75 @@
 <html>
-  <body>
-    <h1>
-      我叫<span id="name"></span>
-    </h1>
-    <p>
-      我的学号是<span id="num"></span>
-    </p>
-    <a href="/login.html">登录</a>
-    <img src="matrix.png">
-    <img id="logo" src="a.png" style="border-radius: 10px 20px 30px 40px">
-    <script src="jquery-3.4.1.js"></script>
-    <script>
-      $(function(){
-        // $.post("http://10.30.201.78:8585/data.json",{"a":"1"},function(result){
-        //   $("#name").text(result.myname);
-        //   $("#num").text(result.mynumber);
-        // });
-        $.ajax({
-          type:"post",
-          xhrFields:{
-              withCredentials:true
-          },
-          url:"http://10.30.201.78:8585/userinfo",
-          contentType:"application/json",
-          data:"{'a':'1'}",
-          success:function(result){
+
+<body>
+  <h1>
+    我叫<span id="name"></span>
+  </h1>
+  <p>
+    我的学号是<span id="num"></span>
+  </p>
+  <a id="in" href="/login.html">登录</a>
+  <a id="out" href="#">注销</a>
+  <br>
+  <input id="content" type="text">
+  <button id=>添加</button>
+  <!-- <img src="matrix.png"> -->
+  <!-- <img id="logo" src="a.png" style="border-radius: 10px 20px 30px 40px"> -->
+  <script src="jquery-3.4.1.js"></script>
+  <script>
+    $(function () {
+      // $.post("http://10.30.201.78:8585/data.json",{"a":"1"},function(result){
+      //   $("#name").text(result.myname);
+      //   $("#num").text(result.mynumber);
+      // });
+      $.ajax({
+        type: "post",
+        xhrFields: {
+          withCredentials: true
+        },
+        url: "http://127.0.0.1:8585/userinfo",
+        //url:"http://10.30.201.78:8585/userinfo",
+        contentType: "application/json",
+        data: "{'a':'1'}",
+        success: function (result) {
+          if (!result || !result.myname) {
+            $("#in").show();
+            $("#out").hide();
+          } else {
+            $("#out").show();
+            $("#in").hide();
+          }
           $("#name").text(result.myname);
           $("#num").text(result.mynumber);
         }
-        })
-        // $("#btn").click1(function(){
-        //   $.get("./date.json",function(result){
-        //   $("#name").text(result.name);
-        //   $("#num").text(result.num);
-        // });
-        // })
       })
-    </script>
-  </body>
+      $("#out").click(function () {
+        $.ajax({
+          type: "POST",
+          xhrFields: {
+            withCredentials: true
+          },
+          url: "http://127.0.0.1:8585/logout",
+          success: function () {
+            location.href = "index.html";
+          }
+        });
+      });
+      $("#add").click(function () {
+        if ($("#content") != "") {
+          $.post("http://127.0.0.1:8585/add", $("#content").val(),
+            function () {
+
+            });
+        }
+      });
+      // $("#btn").click1(function(){
+      //   $.get("./date.json",function(result){
+      //   $("#name").text(result.name);
+      //   $("#num").text(result.num);
+      // });
+      // })
+    })
+  </script>
+</body>
+
 </html>
